@@ -13,7 +13,7 @@ public class Application {
 
     public static void main(String[] args) {
         InputOrderProducer inputOrderProducer = new InputOrderProducer();
-        inputOrderProducer.start();
+//        inputOrderProducer.start();
 
         InputToOutputTopology topology = new InputToOutputTopology();
         topology.start();

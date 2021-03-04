@@ -23,16 +23,13 @@ public class InputOrderProducer {
         Properties config = getConfig();
         Producer<String, InputOrder> producer = new KafkaProducer<>(config);
 
-        String uuid = String.join("-", UUID.randomUUID().toString());
+        String uuid = UUID.randomUUID().toString();
 
         List<Future<RecordMetadata>> sends = new ArrayList<>();
 
         for(int i = 1; i <= 1000000; i++) {
-            String key = String.join("-", uuid, Integer.toString(i));
             InputOrder order = new InputOrder();
-            order.key = key;
-            order.value = uuid;
-            ProducerRecord<String, InputOrder> record = new ProducerRecord<>(InputOrderConstants.INPUT_ORDER_TOPIC_NAME, key, order);
+            ProducerRecord<String, InputOrder> record = new ProducerRecord<>(InputOrderConstants.INPUT_ORDER_TOPIC_NAME, uuid, order);
             sends.add(producer.send(record));
         }
 
