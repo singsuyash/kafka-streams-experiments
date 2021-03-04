@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'com.singsuyash'
+group 'com.poc'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -10,6 +10,9 @@ repositories {
 }
 
 dependencies {
+    compile("com.fasterxml.jackson.core:jackson-databind:2.12.1")
+    compile("org.apache.kafka:kafka-clients:2.7.0")
+    compile("org.apache.kafka:kafka-streams:2.7.0")
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }
