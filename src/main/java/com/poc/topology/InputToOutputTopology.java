@@ -25,7 +25,7 @@ public class InputToOutputTopology {
     public Topology getTopology() {
         KStream<String, InputOrder> stream = builder
                 .stream(
-                        InputOrderConstants.INPUT_ORDER_TOPIC_NAME,
+                        InputOrderConstants.INPUT_ORDER_TOPIC_JSON,
                         Consumed
                                 .with(
                                         Serdes.serdeFrom(
@@ -47,7 +47,7 @@ public class InputToOutputTopology {
                     return KeyValue.pair(outputOrderKey, outputOrder);
                 })
                 .to(
-                        OutputOrderConstants.OUTPUT_ORDER_TOPIC_NAME,
+                        OutputOrderConstants.OUTPUT_ORDER_TOPIC_JSON,
                         Produced.as("PRODUCER-OUTPUT-ORDER")
                                 .with(
                                         Serdes.serdeFrom(

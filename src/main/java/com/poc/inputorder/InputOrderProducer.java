@@ -27,7 +27,7 @@ public class InputOrderProducer {
             InputOrderKey inputOrderKey = new InputOrderKey();
             InputOrder order = new InputOrder();
             ProducerRecord<InputOrderKey, InputOrder> record =
-                    new ProducerRecord<>(InputOrderConstants.INPUT_ORDER_TOPIC_NAME, inputOrderKey, order);
+                    new ProducerRecord<>(InputOrderConstants.INPUT_ORDER_TOPIC_JSON, inputOrderKey, order);
             sends.add(producer.send(record));
         }
 

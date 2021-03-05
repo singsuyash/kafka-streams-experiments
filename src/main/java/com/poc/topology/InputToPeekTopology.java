@@ -28,7 +28,7 @@ public class InputToPeekTopology {
     public Topology getTopology() {
         KStream<String, InputOrder> stream = builder
                 .stream(
-                        InputOrderConstants.INPUT_ORDER_TOPIC_NAME,
+                        InputOrderConstants.INPUT_ORDER_TOPIC_JSON,
                         Consumed
                                 .with(Serdes.String(), Serdes.serdeFrom(new InputOrderSerializer(), new InputOrderDeserializer()))
                                 .withName("CONSUMER-INPUT-ORDER")
