@@ -6,7 +6,6 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.UUID;
 import java.util.concurrent.Future;
 
 public class InputOrderProducer {
@@ -21,15 +20,15 @@ public class InputOrderProducer {
 
     public void start(int num) {
         Properties config = getConfig();
-        Producer<String, InputOrder> producer = new KafkaProducer<>(config);
-
-        String uuid = UUID.randomUUID().toString();
+        Producer<InputOrderKey, InputOrder> producer = new KafkaProducer<>(config);
 
         List<Future<RecordMetadata>> sends = new ArrayList<>();
 
         for(int i = 1; i <= num; i++) {
+            InputOrderKey inputOrderKey = new InputOrderKey();
             InputOrder order = new InputOrder();
-            ProducerRecord<String, InputOrder> record = new ProducerRecord<>(InputOrderConstants.INPUT_ORDER_TOPIC_NAME, uuid, order);
+            ProducerRecord<InputOrderKey, InputOrder> record =
+                    new ProducerRecord<>(InputOrderConstants.INPUT_ORDER_TOPIC_NAME, inputOrderKey, order);
             sends.add(producer.send(record));
         }
 

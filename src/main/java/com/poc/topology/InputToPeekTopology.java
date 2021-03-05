@@ -11,6 +11,8 @@ import org.apache.kafka.streams.kstream.KStream;
 
 import java.util.Properties;
 
+import static java.lang.System.out;
+
 public class InputToPeekTopology {
     private final StreamsBuilder builder = new StreamsBuilder();
     private KafkaStreams stream;
@@ -42,10 +44,12 @@ public class InputToPeekTopology {
         Properties props = getConfig();
         topology = getTopology();
         stream = new KafkaStreams(topology, props);
+        out.println("Starting Streams...");
         stream.start();
     }
 
     public void stop() {
+        out.println("Stopping Streams...");
         stream.close();
     }
 }

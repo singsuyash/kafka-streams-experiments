@@ -9,18 +9,22 @@ import static org.junit.jupiter.api.Assertions.*;
 class InputOrderTest {
 
     @Test
-    void shouldBeAbleToSerializeAndDeserialize() {
-        InputOrder order = new InputOrder();
+    void shouldBeAbleToSerializeAndDeserializeKey() {
+        InputOrderKey key = new InputOrderKey();
+        InputOrderKeySerializer serializer = new InputOrderKeySerializer();
+        InputOrderKeyDeserializer deserializer = new InputOrderKeyDeserializer();
 
+        byte[] bytes = serializer.serialize("foo", key);
+        assertEquals(key.id, ((InputOrderKey)deserializer.deserialize("foo", bytes)).id);
+    }
+
+    @Test
+    void shouldBeAbleToSerializeAndDeserializeOrder() {
+        InputOrder order = new InputOrder();
         InputOrderSerializer serializer = new InputOrderSerializer();
         InputOrderDeserializer deserializer = new InputOrderDeserializer();
 
         byte[] bytes = serializer.serialize("foo", order);
-        System.out.printf("bytes length" + bytes.length);
-        InputOrder orderBackAgain = (InputOrder)deserializer.deserialize("foo", bytes);
-
-        assertEquals(order.key, orderBackAgain.key);
-        assertEquals(order.value.length, orderBackAgain.value.length);
-
+        assertEquals(order.detail.length, ((InputOrder)deserializer.deserialize("foo", bytes)).detail.length);
     }
 }

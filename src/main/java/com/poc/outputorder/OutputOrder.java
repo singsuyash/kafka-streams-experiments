@@ -1,8 +1,7 @@
-package com.poc.inputorder;
+package com.poc.outputorder;
 
-import java.util.UUID;
 import java.util.stream.IntStream;
 
-public class InputOrder {
+public class OutputOrder {
     public int[] detail = IntStream.range(0,249).map(x -> 1).toArray();
 }

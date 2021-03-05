@@ -1,12 +1,7 @@
 package com.poc.topology;
 
-import com.poc.inputorder.InputOrder;
-import com.poc.inputorder.InputOrderConstants;
-import com.poc.inputorder.InputOrderDeserializer;
-import com.poc.inputorder.InputOrderSerializer;
-import com.poc.outputorder.OutputOrderConstants;
-import com.poc.outputorder.OutputOrderDeserializer;
-import com.poc.outputorder.OutputOrderSerializer;
+import com.poc.inputorder.*;
+import com.poc.outputorder.*;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.*;
 import org.apache.kafka.streams.kstream.Consumed;
@@ -32,20 +27,38 @@ public class InputToOutputTopology {
                 .stream(
                         InputOrderConstants.INPUT_ORDER_TOPIC_NAME,
                         Consumed
-                                .with(Serdes.String(), Serdes.serdeFrom(new InputOrderSerializer(), new InputOrderDeserializer()))
+                                .with(
+                                        Serdes.serdeFrom(
+                                                new InputOrderKeySerializer(),
+                                                new InputOrderKeyDeserializer()
+                                        ),
+                                        Serdes.serdeFrom(
+                                                new InputOrderSerializer(),
+                                                new InputOrderDeserializer()
+                                        )
+                                )
                                 .withName("CONSUMER-INPUT-ORDER")
                 );
         stream
                 .map((key, inputOrder) -> {
+                    OutputOrderKey outputOrderKey = new OutputOrderKey();
                     OutputOrder outputOrder = new OutputOrder();
-                    outputOrder.key = inputOrder.key;
-                    outputOrder.value = inputOrder.value;
-                    return KeyValue.pair(key, outputOrder);
+                    outputOrder.detail = inputOrder.detail;
+                    return KeyValue.pair(outputOrderKey, outputOrder);
                 })
                 .to(
                         OutputOrderConstants.OUTPUT_ORDER_TOPIC_NAME,
-                        Produced
-                                .with(Serdes.String(), Serdes.serdeFrom(new OutputOrderSerializer(), new OutputOrderDeserializer()))
+                        Produced.as("PRODUCER-OUTPUT-ORDER")
+                                .with(
+                                        Serdes.serdeFrom(
+                                                new OutputOrderKeySerializer(),
+                                                new OutputOrderKeyDeserializer()
+                                        ),
+                                        Serdes.serdeFrom(
+                                                new OutputOrderSerializer(),
+                                                new OutputOrderDeserializer()
+                                        )
+                                )
                                 .withName("PRODUCER-OUTPUT-ORDER")
                 );
         return builder.build();
