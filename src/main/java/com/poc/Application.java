@@ -1,6 +1,6 @@
 package com.poc;
 
-import com.poc.topology.InputToPeekTopology;
+import com.poc.topology.InputToOutputAvroTopology;
 
 public class Application {
 
@@ -14,7 +14,9 @@ public class Application {
 //        inputOrderAvroProducer.start(recordCount);
 
 //        InputToOutputTopology topology = new InputToOutputTopology();
-        InputToPeekTopology topology = new InputToPeekTopology();
+//        InputToPeekTopology topology = new InputToPeekTopology();
+//        InputToPeekAvroTopology topology = new InputToPeekAvroTopology();
+        InputToOutputAvroTopology topology = new InputToOutputAvroTopology();
         topology.start();
 
         Runtime
