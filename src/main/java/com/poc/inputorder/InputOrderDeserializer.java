@@ -6,11 +6,11 @@ import org.apache.kafka.common.serialization.Deserializer;
 
 import java.io.IOException;
 
-public class InputOrderDeserializer implements Deserializer {
+public class InputOrderDeserializer implements Deserializer<InputOrder> {
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Override
-    public Object deserialize(String topic, byte[] data) {
+    public InputOrder deserialize(String topic, byte[] data) {
         try {
             return mapper.readValue(data, InputOrder.class);
         } catch (IOException e) {

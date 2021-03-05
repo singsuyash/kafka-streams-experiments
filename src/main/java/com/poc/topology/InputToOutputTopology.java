@@ -5,7 +5,6 @@ import com.poc.outputorder.*;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.*;
 import org.apache.kafka.streams.kstream.Consumed;
-import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.Produced;
 
 import java.util.Properties;
@@ -13,7 +12,6 @@ import java.util.Properties;
 public class InputToOutputTopology {
     private final StreamsBuilder builder = new StreamsBuilder();
     private KafkaStreams stream;
-    private Topology topology;
 
     public Properties getConfig() {
         Properties props = new Properties();
@@ -23,7 +21,7 @@ public class InputToOutputTopology {
     }
 
     public Topology getTopology() {
-        KStream<String, InputOrder> stream = builder
+        builder
                 .stream(
                         InputOrderConstants.INPUT_ORDER_TOPIC_JSON,
                         Consumed
@@ -38,8 +36,7 @@ public class InputToOutputTopology {
                                         )
                                 )
                                 .withName("CONSUMER-INPUT-ORDER")
-                );
-        stream
+                )
                 .map((key, inputOrder) -> {
                     OutputOrderKey outputOrderKey = new OutputOrderKey();
                     OutputOrder outputOrder = new OutputOrder();
@@ -48,7 +45,7 @@ public class InputToOutputTopology {
                 })
                 .to(
                         OutputOrderConstants.OUTPUT_ORDER_TOPIC_JSON,
-                        Produced.as("PRODUCER-OUTPUT-ORDER")
+                        Produced
                                 .with(
                                         Serdes.serdeFrom(
                                                 new OutputOrderKeySerializer(),
@@ -66,7 +63,7 @@ public class InputToOutputTopology {
 
     public void start() {
         Properties props = getConfig();
-        topology = getTopology();
+        Topology topology = getTopology();
         stream = new KafkaStreams(topology, props);
         stream.start();
     }

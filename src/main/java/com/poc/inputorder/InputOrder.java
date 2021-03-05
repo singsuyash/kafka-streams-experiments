@@ -1,6 +1,5 @@
 package com.poc.inputorder;
 
-import java.util.UUID;
 import java.util.stream.IntStream;
 
 public class InputOrder {
