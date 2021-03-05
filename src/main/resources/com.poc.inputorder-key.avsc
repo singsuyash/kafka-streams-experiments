@@ -1,5 +1,5 @@
 {
-  "namespace": "com.poc.inputorder",
+  "namespace": "com.poc.inputorder.avro",
   "name": "InputOrderAvroKey",
   "type": "record",
   "fields": [

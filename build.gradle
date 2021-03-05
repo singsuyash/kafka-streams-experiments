@@ -38,7 +38,7 @@ repositories {
 
 generateAvroJava {
     source = 'src/main/resources'
-    outputDir = file('build/avro')
+    outputDir = file('src/main/java')
 }
 
 schemaRegistry {

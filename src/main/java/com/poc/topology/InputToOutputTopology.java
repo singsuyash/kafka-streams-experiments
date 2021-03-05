@@ -4,7 +4,6 @@ import com.poc.inputorder.InputOrder;
 import com.poc.inputorder.InputOrderConstants;
 import com.poc.inputorder.InputOrderDeserializer;
 import com.poc.inputorder.InputOrderSerializer;
-import com.poc.outputorder.OutputOrder;
 import com.poc.outputorder.OutputOrderConstants;
 import com.poc.outputorder.OutputOrderDeserializer;
 import com.poc.outputorder.OutputOrderSerializer;

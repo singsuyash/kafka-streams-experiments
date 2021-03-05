@@ -3,17 +3,19 @@
  *
  * DO NOT EDIT DIRECTLY
  */
-package com.poc.inputorder;
+package com.poc.inputorder.avro;
 
-import org.apache.avro.message.BinaryMessageDecoder;
-import org.apache.avro.message.BinaryMessageEncoder;
-import org.apache.avro.message.SchemaStore;
+import org.apache.avro.generic.GenericArray;
 import org.apache.avro.specific.SpecificData;
+import org.apache.avro.util.Utf8;
+import org.apache.avro.message.BinaryMessageEncoder;
+import org.apache.avro.message.BinaryMessageDecoder;
+import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class InputOrderAvro extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = -3625174043821127000L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"InputOrderAvro\",\"namespace\":\"com.poc.inputorder\",\"fields\":[{\"name\":\"key\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"value\",\"type\":{\"type\":\"array\",\"items\":\"int\"}}]}");
+  private static final long serialVersionUID = -1248090523329784046L;
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"InputOrderAvro\",\"namespace\":\"com.poc.inputorder.avro\",\"fields\":[{\"name\":\"detail\",\"type\":{\"type\":\"array\",\"items\":\"int\"}}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static SpecificData MODEL$ = new SpecificData();
@@ -69,8 +71,7 @@ public class InputOrderAvro extends org.apache.avro.specific.SpecificRecordBase 
     return DECODER.decode(b);
   }
 
-  @Deprecated public String key;
-  @Deprecated public java.util.List<Integer> value;
+  @Deprecated public java.util.List<java.lang.Integer> detail;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -81,75 +82,54 @@ public class InputOrderAvro extends org.apache.avro.specific.SpecificRecordBase 
 
   /**
    * All-args constructor.
-   * @param key The new value for key
-   * @param value The new value for value
+   * @param detail The new value for detail
    */
-  public InputOrderAvro(String key, java.util.List<Integer> value) {
-    this.key = key;
-    this.value = value;
+  public InputOrderAvro(java.util.List<java.lang.Integer> detail) {
+    this.detail = detail;
   }
 
   public org.apache.avro.specific.SpecificData getSpecificData() { return MODEL$; }
   public org.apache.avro.Schema getSchema() { return SCHEMA$; }
   // Used by DatumWriter.  Applications should not call.
-  public Object get(int field$) {
+  public java.lang.Object get(int field$) {
     switch (field$) {
-    case 0: return key;
-    case 1: return value;
+    case 0: return detail;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
 
   // Used by DatumReader.  Applications should not call.
   @SuppressWarnings(value="unchecked")
-  public void put(int field$, Object value$) {
+  public void put(int field$, java.lang.Object value$) {
     switch (field$) {
-    case 0: key = value$ != null ? value$.toString() : null; break;
-    case 1: value = (java.util.List<Integer>)value$; break;
+    case 0: detail = (java.util.List<java.lang.Integer>)value$; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
 
   /**
-   * Gets the value of the 'key' field.
-   * @return The value of the 'key' field.
+   * Gets the value of the 'detail' field.
+   * @return The value of the 'detail' field.
    */
-  public String getKey() {
-    return key;
+  public java.util.List<java.lang.Integer> getDetail() {
+    return detail;
   }
 
 
   /**
-   * Sets the value of the 'key' field.
+   * Sets the value of the 'detail' field.
    * @param value the value to set.
    */
-  public void setKey(String value) {
-    this.key = value;
-  }
-
-  /**
-   * Gets the value of the 'value' field.
-   * @return The value of the 'value' field.
-   */
-  public java.util.List<Integer> getValue() {
-    return value;
-  }
-
-
-  /**
-   * Sets the value of the 'value' field.
-   * @param value the value to set.
-   */
-  public void setValue(java.util.List<Integer> value) {
-    this.value = value;
+  public void setDetail(java.util.List<java.lang.Integer> value) {
+    this.detail = value;
   }
 
   /**
    * Creates a new InputOrderAvro RecordBuilder.
    * @return A new InputOrderAvro RecordBuilder
    */
-  public static Builder newBuilder() {
-    return new Builder();
+  public static com.poc.inputorder.avro.InputOrderAvro.Builder newBuilder() {
+    return new com.poc.inputorder.avro.InputOrderAvro.Builder();
   }
 
   /**
@@ -157,11 +137,11 @@ public class InputOrderAvro extends org.apache.avro.specific.SpecificRecordBase 
    * @param other The existing builder to copy.
    * @return A new InputOrderAvro RecordBuilder
    */
-  public static Builder newBuilder(Builder other) {
+  public static com.poc.inputorder.avro.InputOrderAvro.Builder newBuilder(com.poc.inputorder.avro.InputOrderAvro.Builder other) {
     if (other == null) {
-      return new Builder();
+      return new com.poc.inputorder.avro.InputOrderAvro.Builder();
     } else {
-      return new Builder(other);
+      return new com.poc.inputorder.avro.InputOrderAvro.Builder(other);
     }
   }
 
@@ -170,11 +150,11 @@ public class InputOrderAvro extends org.apache.avro.specific.SpecificRecordBase 
    * @param other The existing instance to copy.
    * @return A new InputOrderAvro RecordBuilder
    */
-  public static Builder newBuilder(InputOrderAvro other) {
+  public static com.poc.inputorder.avro.InputOrderAvro.Builder newBuilder(com.poc.inputorder.avro.InputOrderAvro other) {
     if (other == null) {
-      return new Builder();
+      return new com.poc.inputorder.avro.InputOrderAvro.Builder();
     } else {
-      return new Builder(other);
+      return new com.poc.inputorder.avro.InputOrderAvro.Builder(other);
     }
   }
 
@@ -185,8 +165,7 @@ public class InputOrderAvro extends org.apache.avro.specific.SpecificRecordBase 
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<InputOrderAvro>
     implements org.apache.avro.data.RecordBuilder<InputOrderAvro> {
 
-    private String key;
-    private java.util.List<Integer> value;
+    private java.util.List<java.lang.Integer> detail;
 
     /** Creates a new Builder */
     private Builder() {
@@ -197,15 +176,11 @@ public class InputOrderAvro extends org.apache.avro.specific.SpecificRecordBase 
      * Creates a Builder by copying an existing Builder.
      * @param other The existing Builder to copy.
      */
-    private Builder(Builder other) {
+    private Builder(com.poc.inputorder.avro.InputOrderAvro.Builder other) {
       super(other);
-      if (isValidValue(fields()[0], other.key)) {
-        this.key = data().deepCopy(fields()[0].schema(), other.key);
+      if (isValidValue(fields()[0], other.detail)) {
+        this.detail = data().deepCopy(fields()[0].schema(), other.detail);
         fieldSetFlags()[0] = other.fieldSetFlags()[0];
-      }
-      if (isValidValue(fields()[1], other.value)) {
-        this.value = data().deepCopy(fields()[1].schema(), other.value);
-        fieldSetFlags()[1] = other.fieldSetFlags()[1];
       }
     }
 
@@ -213,95 +188,51 @@ public class InputOrderAvro extends org.apache.avro.specific.SpecificRecordBase 
      * Creates a Builder by copying an existing InputOrderAvro instance
      * @param other The existing instance to copy.
      */
-    private Builder(InputOrderAvro other) {
+    private Builder(com.poc.inputorder.avro.InputOrderAvro other) {
       super(SCHEMA$);
-      if (isValidValue(fields()[0], other.key)) {
-        this.key = data().deepCopy(fields()[0].schema(), other.key);
+      if (isValidValue(fields()[0], other.detail)) {
+        this.detail = data().deepCopy(fields()[0].schema(), other.detail);
         fieldSetFlags()[0] = true;
       }
-      if (isValidValue(fields()[1], other.value)) {
-        this.value = data().deepCopy(fields()[1].schema(), other.value);
-        fieldSetFlags()[1] = true;
-      }
     }
 
     /**
-      * Gets the value of the 'key' field.
+      * Gets the value of the 'detail' field.
       * @return The value.
       */
-    public String getKey() {
-      return key;
+    public java.util.List<java.lang.Integer> getDetail() {
+      return detail;
     }
 
 
     /**
-      * Sets the value of the 'key' field.
-      * @param value The value of 'key'.
+      * Sets the value of the 'detail' field.
+      * @param value The value of 'detail'.
       * @return This builder.
       */
-    public Builder setKey(String value) {
+    public com.poc.inputorder.avro.InputOrderAvro.Builder setDetail(java.util.List<java.lang.Integer> value) {
       validate(fields()[0], value);
-      this.key = value;
+      this.detail = value;
       fieldSetFlags()[0] = true;
       return this;
     }
 
     /**
-      * Checks whether the 'key' field has been set.
-      * @return True if the 'key' field has been set, false otherwise.
+      * Checks whether the 'detail' field has been set.
+      * @return True if the 'detail' field has been set, false otherwise.
       */
-    public boolean hasKey() {
+    public boolean hasDetail() {
       return fieldSetFlags()[0];
     }
 
 
     /**
-      * Clears the value of the 'key' field.
+      * Clears the value of the 'detail' field.
       * @return This builder.
       */
-    public Builder clearKey() {
-      key = null;
+    public com.poc.inputorder.avro.InputOrderAvro.Builder clearDetail() {
+      detail = null;
       fieldSetFlags()[0] = false;
-      return this;
-    }
-
-    /**
-      * Gets the value of the 'value' field.
-      * @return The value.
-      */
-    public java.util.List<Integer> getValue() {
-      return value;
-    }
-
-
-    /**
-      * Sets the value of the 'value' field.
-      * @param value The value of 'value'.
-      * @return This builder.
-      */
-    public Builder setValue(java.util.List<Integer> value) {
-      validate(fields()[1], value);
-      this.value = value;
-      fieldSetFlags()[1] = true;
-      return this;
-    }
-
-    /**
-      * Checks whether the 'value' field has been set.
-      * @return True if the 'value' field has been set, false otherwise.
-      */
-    public boolean hasValue() {
-      return fieldSetFlags()[1];
-    }
-
-
-    /**
-      * Clears the value of the 'value' field.
-      * @return This builder.
-      */
-    public Builder clearValue() {
-      value = null;
-      fieldSetFlags()[1] = false;
       return this;
     }
 
@@ -310,12 +241,11 @@ public class InputOrderAvro extends org.apache.avro.specific.SpecificRecordBase 
     public InputOrderAvro build() {
       try {
         InputOrderAvro record = new InputOrderAvro();
-        record.key = fieldSetFlags()[0] ? this.key : (String) defaultValue(fields()[0]);
-        record.value = fieldSetFlags()[1] ? this.value : (java.util.List<Integer>) defaultValue(fields()[1]);
+        record.detail = fieldSetFlags()[0] ? this.detail : (java.util.List<java.lang.Integer>) defaultValue(fields()[0]);
         return record;
       } catch (org.apache.avro.AvroMissingFieldException e) {
         throw e;
-      } catch (Exception e) {
+      } catch (java.lang.Exception e) {
         throw new org.apache.avro.AvroRuntimeException(e);
       }
     }
@@ -344,13 +274,11 @@ public class InputOrderAvro extends org.apache.avro.specific.SpecificRecordBase 
   @Override public void customEncode(org.apache.avro.io.Encoder out)
     throws java.io.IOException
   {
-    out.writeString(this.key);
-
-    long size0 = this.value.size();
+    long size0 = this.detail.size();
     out.writeArrayStart();
     out.setItemCount(size0);
     long actualSize0 = 0;
-    for (Integer e0: this.value) {
+    for (java.lang.Integer e0: this.detail) {
       actualSize0++;
       out.startItem();
       out.writeInt(e0);
@@ -366,41 +294,35 @@ public class InputOrderAvro extends org.apache.avro.specific.SpecificRecordBase 
   {
     org.apache.avro.Schema.Field[] fieldOrder = in.readFieldOrderIfDiff();
     if (fieldOrder == null) {
-      this.key = in.readString();
-
       long size0 = in.readArrayStart();
-      java.util.List<Integer> a0 = this.value;
+      java.util.List<java.lang.Integer> a0 = this.detail;
       if (a0 == null) {
-        a0 = new SpecificData.Array<Integer>((int)size0, SCHEMA$.getField("value").schema());
-        this.value = a0;
+        a0 = new SpecificData.Array<java.lang.Integer>((int)size0, SCHEMA$.getField("detail").schema());
+        this.detail = a0;
       } else a0.clear();
-      SpecificData.Array<Integer> ga0 = (a0 instanceof SpecificData.Array ? (SpecificData.Array<Integer>)a0 : null);
+      SpecificData.Array<java.lang.Integer> ga0 = (a0 instanceof SpecificData.Array ? (SpecificData.Array<java.lang.Integer>)a0 : null);
       for ( ; 0 < size0; size0 = in.arrayNext()) {
         for ( ; size0 != 0; size0--) {
-          Integer e0 = (ga0 != null ? ga0.peek() : null);
+          java.lang.Integer e0 = (ga0 != null ? ga0.peek() : null);
           e0 = in.readInt();
           a0.add(e0);
         }
       }
 
     } else {
-      for (int i = 0; i < 2; i++) {
+      for (int i = 0; i < 1; i++) {
         switch (fieldOrder[i].pos()) {
         case 0:
-          this.key = in.readString();
-          break;
-
-        case 1:
           long size0 = in.readArrayStart();
-          java.util.List<Integer> a0 = this.value;
+          java.util.List<java.lang.Integer> a0 = this.detail;
           if (a0 == null) {
-            a0 = new SpecificData.Array<Integer>((int)size0, SCHEMA$.getField("value").schema());
-            this.value = a0;
+            a0 = new SpecificData.Array<java.lang.Integer>((int)size0, SCHEMA$.getField("detail").schema());
+            this.detail = a0;
           } else a0.clear();
-          SpecificData.Array<Integer> ga0 = (a0 instanceof SpecificData.Array ? (SpecificData.Array<Integer>)a0 : null);
+          SpecificData.Array<java.lang.Integer> ga0 = (a0 instanceof SpecificData.Array ? (SpecificData.Array<java.lang.Integer>)a0 : null);
           for ( ; 0 < size0; size0 = in.arrayNext()) {
             for ( ; size0 != 0; size0--) {
-              Integer e0 = (ga0 != null ? ga0.peek() : null);
+              java.lang.Integer e0 = (ga0 != null ? ga0.peek() : null);
               e0 = in.readInt();
               a0.add(e0);
             }

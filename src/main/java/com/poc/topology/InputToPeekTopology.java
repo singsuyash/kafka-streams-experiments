@@ -4,15 +4,10 @@ import com.poc.inputorder.InputOrder;
 import com.poc.inputorder.InputOrderConstants;
 import com.poc.inputorder.InputOrderDeserializer;
 import com.poc.inputorder.InputOrderSerializer;
-import com.poc.outputorder.OutputOrder;
-import com.poc.outputorder.OutputOrderConstants;
-import com.poc.outputorder.OutputOrderDeserializer;
-import com.poc.outputorder.OutputOrderSerializer;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.*;
 import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.KStream;
-import org.apache.kafka.streams.kstream.Produced;
 
 import java.util.Properties;
 

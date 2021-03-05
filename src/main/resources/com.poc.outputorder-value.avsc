@@ -1,5 +1,5 @@
 {
-  "namespace": "com.poc.outputorder",
+  "namespace": "com.poc.outputorder.avro",
   "name": "OutputOrderAvro",
   "type": "record",
   "fields": [
