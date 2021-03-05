@@ -1,5 +1,6 @@
 package com.poc.topology;
 
+import com.poc.AppConfig;
 import com.poc.inputorder.*;
 import com.poc.outputorder.*;
 import org.apache.kafka.common.serialization.Serdes;
@@ -15,8 +16,8 @@ public class InputToOutputTopology {
 
     public Properties getConfig() {
         Properties props = new Properties();
-        props.put(StreamsConfig.APPLICATION_ID_CONFIG, "input-to-output");
-        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(StreamsConfig.APPLICATION_ID_CONFIG, AppConfig.APPLICATION_ID);
+        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, AppConfig.BOOTSTRAP_SERVER);
         return props;
     }
 

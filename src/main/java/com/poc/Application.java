@@ -1,23 +1,21 @@
 package com.poc;
 
-import com.poc.inputorder.InputOrderAvroProducer;
-import com.poc.inputorder.InputOrderProducer;
 import com.poc.topology.InputToPeekTopology;
 
 public class Application {
 
     public static void main(String[] args) throws InterruptedException {
-        int recordCount = Integer.parseInt(args[0]);
-//
-        InputOrderProducer inputOrderProducer = new InputOrderProducer();
-        inputOrderProducer.start(recordCount);
+//        int recordCount = Integer.parseInt(args[0]);
 
-        InputOrderAvroProducer inputOrderAvroProducer = new InputOrderAvroProducer();
-        inputOrderAvroProducer.start(recordCount);
+//        InputOrderProducer inputOrderProducer = new InputOrderProducer();
+//        inputOrderProducer.start(recordCount);
+//
+//        InputOrderAvroProducer inputOrderAvroProducer = new InputOrderAvroProducer();
+//        inputOrderAvroProducer.start(recordCount);
 
 //        InputToOutputTopology topology = new InputToOutputTopology();
         InputToPeekTopology topology = new InputToPeekTopology();
-//        topology.start();
+        topology.start();
 
         Runtime
                 .getRuntime()
