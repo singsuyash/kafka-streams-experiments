@@ -25,24 +25,19 @@ public class InputToPeekTopology {
     }
 
     public Topology getTopology() {
-        Consumed<InputOrderKey, InputOrder> consumed =
-                Consumed.with(
-                        Serdes.serdeFrom(
-                                new InputOrderKeySerializer(),
-                                new InputOrderKeyDeserializer()
-                        ),
-                        Serdes.serdeFrom(
-                                new InputOrderSerializer(),
-                                new InputOrderDeserializer()
-                        )
-                );
         builder
                 .stream(
                         InputOrderConstants.INPUT_ORDER_TOPIC_JSON,
-                        consumed
-                );
-        builder
-                .stream(InputOrderConstants.INPUT_ORDER_TOPIC_JSON, consumed)
+                        Consumed.with(
+                                Serdes.serdeFrom(
+                                        new InputOrderKeySerializer(),
+                                        new InputOrderKeyDeserializer()
+                                ),
+                                Serdes.serdeFrom(
+                                        new InputOrderSerializer(),
+                                        new InputOrderDeserializer()
+                                )
+                        ))
                 .peek(
                         (key, value) -> {
                             //do nothing
