@@ -2,6 +2,7 @@ package com.poc.topology;
 
 import com.poc.AppConfig;
 import com.poc.inputorder.*;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsBuilder;
@@ -11,8 +12,7 @@ import org.apache.kafka.streams.kstream.Consumed;
 
 import java.util.Properties;
 
-import static java.lang.System.out;
-
+@Slf4j
 public class InputToPeekTopology {
     private final StreamsBuilder builder = new StreamsBuilder();
     private KafkaStreams stream;
@@ -56,12 +56,12 @@ public class InputToPeekTopology {
         Properties props = getConfig();
         Topology topology = getTopology();
         stream = new KafkaStreams(topology, props);
-        out.println("Starting Streams...");
+        log.info("Starting Streams...");
         stream.start();
     }
 
     public void stop() {
-        out.println("Stopping Streams...");
+        log.info("Stopping Streams...");
         stream.close();
     }
 }

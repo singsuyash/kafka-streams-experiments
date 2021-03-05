@@ -1,0 +1,39 @@
+<configuration debug="true" scan="true" scanPeriod="30 seconds">
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <excludeMdcKeyName>accountNumber</excludeMdcKeyName>
+            <jsonGeneratorDecorator class="net.logstash.logback.mask.MaskingJsonGeneratorDecorator">
+                <defaultMask>*****</defaultMask>
+            </jsonGeneratorDecorator>
+        </encoder>
+    </appender>
+
+    <appender name="file-appender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <excludeMdcKeyName>accountNumber</excludeMdcKeyName>
+            <jsonGeneratorDecorator class="net.logstash.logback.mask.MaskingJsonGeneratorDecorator">
+                <defaultMask>*****</defaultMask>
+            </jsonGeneratorDecorator>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/logs.kafka-streams-experiment.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+             <!-- Max size of individual log file -->
+            <maxFileSize>100MB</maxFileSize>
+            <!-- Log files will be kep for 2 days only -->
+            <maxHistory>2</maxHistory>
+            <!-- Total log file size should not extend 5 GB -->
+            <totalSizeCap>5GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <root>
+        <appender-ref ref="file-appender"/>
+        <appender-ref ref="console"/>
+    </root>
+
+    <logger name="com.poc" additivity="false">
+        <appender-ref ref="file-appender"/>
+        <appender-ref ref="console"/>
+    </logger>
+
+</configuration>
