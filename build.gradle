@@ -1,7 +1,27 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        maven {
+            url "http://packages.confluent.io/maven/"
+        }
+        maven {
+            url = uri("https://jitpack.io")
+        }
+    }
+    dependencies {
+        classpath "com.github.imflog:kafka-schema-registry-gradle-plugin:1.0.0"
+    }
+}
+
 plugins {
     id 'java'
     id 'application'
+    id 'com.commercehub.gradle.plugin.avro' version '0.21.0'
 }
+
+apply plugin: "com.github.imflog.kafka-schema-registry-gradle-plugin"
 
 application {
     mainClassName 'com.poc.Application'
@@ -11,14 +31,47 @@ group 'com.poc'
 version '1.0-SNAPSHOT'
 
 repositories {
+    mavenLocal()
     mavenCentral()
+    maven { url 'https://packages.confluent.io/maven/' }
+}
+
+generateAvroJava {
+    source = 'src/main/resources'
+    outputDir = file('build/avro')
+}
+
+schemaRegistry {
+    def uri = project.schemaRegistryUrl
+    println("SCHEMA_REGISTRY_URL: " + uri)
+    url = uri
+
+    def schemas = {
+        subject('com.poc.inputorder'.concat('-key'), 'src/main/resources/com.poc.inputorder-key.avsc', 'AVRO')
+        subject('com.poc.inputorder'.concat('-value'), 'src/main/resources/com.poc.inputorder-value.avsc', 'AVRO')
+        subject('com.poc.outputorder'.concat('-key'), 'src/main/resources/com.poc.outputorder-key.avsc', 'AVRO')
+        subject('com.poc.outputorder'.concat('-value'), 'src/main/resources/com.poc.outputorder-value.avsc', 'AVRO')
+    }
+
+    def schemaConfigs = {
+        subject('com.poc.inputorder'.concat('-key'), 'BACKWARD')
+        subject('com.poc.inputorder'.concat('-value'), 'BACKWARD')
+        subject('com.poc.outputorder'.concat('-key'), 'BACKWARD')
+        subject('com.poc.outputorder'.concat('-value'), 'BACKWARD')
+    }
+
+    register(schemas)
+    compatibility(schemas)
+    config(schemaConfigs)
+
 }
 
 dependencies {
     compile("com.fasterxml.jackson.core:jackson-databind:2.12.1")
     compile("org.apache.kafka:kafka-clients:2.7.0")
     compile("org.apache.kafka:kafka-streams:2.7.0")
-    compileOnly('org.apache.avro:avro:1.10.0')
+    implementation('org.apache.avro:avro:1.10.0')
+    implementation('io.confluent:kafka-streams-avro-serde:5.5.0')
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }

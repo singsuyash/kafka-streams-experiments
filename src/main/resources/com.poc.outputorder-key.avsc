@@ -1,20 +1,13 @@
 {
   "namespace": "com.poc.outputorder",
-  "name": "OutputOrderAvro",
+  "name": "OutputOrderAvroKey",
   "type": "record",
   "fields": [
     {
-      "name": "key",
+      "name": "id",
       "type": {
         "type": "string",
         "avro.java.string": "String"
-      }
-    },
-    {
-      "name": "value",
-      "type": {
-        "type": "array",
-        "items": "int"
       }
     }
   ]
