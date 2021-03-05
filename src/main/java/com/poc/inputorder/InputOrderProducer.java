@@ -19,7 +19,7 @@ public class InputOrderProducer {
         return props;
     }
 
-    public void start() {
+    public void start(int num) {
         Properties config = getConfig();
         Producer<String, InputOrder> producer = new KafkaProducer<>(config);
 
@@ -27,7 +27,7 @@ public class InputOrderProducer {
 
         List<Future<RecordMetadata>> sends = new ArrayList<>();
 
-        for(int i = 1; i <= 1000000; i++) {
+        for(int i = 1; i <= num; i++) {
             InputOrder order = new InputOrder();
             ProducerRecord<String, InputOrder> record = new ProducerRecord<>(InputOrderConstants.INPUT_ORDER_TOPIC_NAME, uuid, order);
             sends.add(producer.send(record));

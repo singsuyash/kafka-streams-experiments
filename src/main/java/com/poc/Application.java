@@ -2,6 +2,7 @@ package com.poc;
 
 import com.poc.inputorder.InputOrderProducer;
 import com.poc.topology.InputToOutputTopology;
+import com.poc.topology.InputToPeekTopology;
 import org.apache.kafka.clients.producer.RecordMetadata;
 
 import java.util.List;
@@ -13,9 +14,10 @@ public class Application {
 
     public static void main(String[] args) {
         InputOrderProducer inputOrderProducer = new InputOrderProducer();
-//        inputOrderProducer.start();
+//        inputOrderProducer.start(14000000);
 
-        InputToOutputTopology topology = new InputToOutputTopology();
+//        InputToOutputTopology topology = new InputToOutputTopology();
+        InputToPeekTopology topology = new InputToPeekTopology();
         topology.start();
         out.println("Starting Streams...");
 
