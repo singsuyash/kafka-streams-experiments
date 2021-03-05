@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.Future;
 
+import static java.lang.String.format;
+
 public class InputOrderProducer {
 
     public Properties getConfig() {
@@ -18,6 +20,9 @@ public class InputOrderProducer {
     }
 
     public void start(int num) {
+        String topic = InputOrderConstants.INPUT_ORDER_TOPIC_JSON;
+        System.out.println(format("Producing %s input orders to %s", num, topic));
+
         Properties config = getConfig();
         Producer<InputOrderKey, InputOrder> producer = new KafkaProducer<>(config);
 
@@ -27,7 +32,7 @@ public class InputOrderProducer {
             InputOrderKey inputOrderKey = new InputOrderKey();
             InputOrder order = new InputOrder();
             ProducerRecord<InputOrderKey, InputOrder> record =
-                    new ProducerRecord<>(InputOrderConstants.INPUT_ORDER_TOPIC_JSON, inputOrderKey, order);
+                    new ProducerRecord<>(topic, inputOrderKey, order);
             sends.add(producer.send(record));
         }
 

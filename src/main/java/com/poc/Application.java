@@ -13,8 +13,8 @@ public class Application {
     public static void main(String[] args) {
         int recordCount = Integer.parseInt(args[0]);
 
-//        InputOrderProducer inputOrderProducer = new InputOrderProducer();
-//        inputOrderProducer.start(recordCount);
+        InputOrderProducer inputOrderProducer = new InputOrderProducer();
+        inputOrderProducer.start(recordCount);
 
         InputOrderAvroProducer inputOrderAvroProducer = new InputOrderAvroProducer();
         inputOrderAvroProducer.start(recordCount);

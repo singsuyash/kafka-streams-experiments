@@ -13,6 +13,8 @@ import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static java.lang.String.format;
+
 public class InputOrderAvroProducer {
 
     public Properties getConfig() {
@@ -25,6 +27,9 @@ public class InputOrderAvroProducer {
     }
 
     public void start(int num) {
+        String topic = InputOrderConstants.INPUT_ORDER_TOPIC_AVRO;
+        System.out.println(format("Producing %s input orders to %s", num, topic));
+
         Properties config = getConfig();
         Producer<InputOrderAvroKey, InputOrderAvro> producer = new KafkaProducer<>(config);
 
@@ -34,7 +39,7 @@ public class InputOrderAvroProducer {
             InputOrderAvroKey inputOrderAvroKey = new InputOrderAvroKey(UUID.randomUUID().toString());
             InputOrderAvro order = new InputOrderAvro(IntStream.range(1,250).boxed().collect(Collectors.toList()));
             ProducerRecord<InputOrderAvroKey, InputOrderAvro> record =
-                    new ProducerRecord<>(InputOrderConstants.INPUT_ORDER_TOPIC_AVRO, inputOrderAvroKey, order);
+                    new ProducerRecord<>(topic, inputOrderAvroKey, order);
             sends.add(producer.send(record));
         }
 
