@@ -49,6 +49,8 @@ schemaRegistry {
     def schemas = {
         subject('com.poc.inputorder'.concat('-key'), 'src/main/resources/com.poc.inputorder-key.avsc', 'AVRO')
         subject('com.poc.inputorder'.concat('-value'), 'src/main/resources/com.poc.inputorder-value.avsc', 'AVRO')
+        subject('com.poc.inputorder.diagnostic'.concat('-key'), 'src/main/resources/com.poc.inputorder.diagnostic-key.avsc', 'AVRO')
+        subject('com.poc.inputorder.diagnostic'.concat('-value'), 'src/main/resources/com.poc.inputorder.diagnostic-value.avsc', 'AVRO')
         subject('com.poc.outputorder'.concat('-key'), 'src/main/resources/com.poc.outputorder-key.avsc', 'AVRO')
         subject('com.poc.outputorder'.concat('-value'), 'src/main/resources/com.poc.outputorder-value.avsc', 'AVRO')
     }
@@ -56,6 +58,8 @@ schemaRegistry {
     def schemaConfigs = {
         subject('com.poc.inputorder'.concat('-key'), 'BACKWARD')
         subject('com.poc.inputorder'.concat('-value'), 'BACKWARD')
+        subject('com.poc.inputorder.diagnostic'.concat('-key'), 'BACKWARD')
+        subject('com.poc.inputorder.diagnostic'.concat('-value'), 'BACKWARD')
         subject('com.poc.outputorder'.concat('-key'), 'BACKWARD')
         subject('com.poc.outputorder'.concat('-value'), 'BACKWARD')
     }
