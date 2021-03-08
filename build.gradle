@@ -86,7 +86,14 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
     testImplementation 'org.projectlombok:lombok:1.18.12'
+
+//    spring-boot
+    implementation('org.springframework.boot:spring-boot-starter-web:2.3.3.RELEASE') {
+        exclude group: 'logback-classic'
+    }
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:2.3.3.RELEASE'
 }
+
 
 test {
     useJUnitPlatform()
