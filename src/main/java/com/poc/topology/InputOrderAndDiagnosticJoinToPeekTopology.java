@@ -24,7 +24,7 @@ import java.util.stream.IntStream;
 
 public class InputOrderAndDiagnosticJoinToPeekTopology {
     private final StreamsBuilder builder = new StreamsBuilder();
-    private KafkaStreams stream;
+    private static KafkaStreams stream;
 
     public Properties getConfig() {
         Properties props = new Properties();
@@ -100,5 +100,9 @@ public class InputOrderAndDiagnosticJoinToPeekTopology {
 
     public void stop() {
         stream.close();
+    }
+
+    public static KafkaStreams getKafkaStream() {
+        return stream;
     }
 }
