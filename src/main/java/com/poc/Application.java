@@ -1,6 +1,6 @@
 package com.poc;
 
-import com.poc.topology.InputOrderAndDiagnosticJoinToPeekTopology;
+import com.poc.topology.InputOrderAndDiagnosticJoinAndMapToOutputAvroTopology;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -24,7 +24,10 @@ public class Application {
 //        InputToPeekTopology topology = new InputToPeekTopology();
 //        InputToPeekAvroTopology topology = new InputToPeekAvroTopology();
 //        InputToOutputAvroTopology topology = new InputToOutputAvroTopology();
-        InputOrderAndDiagnosticJoinToPeekTopology topology = new InputOrderAndDiagnosticJoinToPeekTopology();
+//        InputOrderAndDiagnosticJoinToPeekTopology topology = new InputOrderAndDiagnosticJoinToPeekTopology();
+//        InputOrderAndDiagnosticToPeekTopology topology = new InputOrderAndDiagnosticToPeekTopology();
+//        InputOrderAndDiagnosticJoinAndMapToPeekTopology topology = new InputOrderAndDiagnosticJoinAndMapToPeekTopology();
+        InputOrderAndDiagnosticJoinAndMapToOutputAvroTopology topology = new InputOrderAndDiagnosticJoinAndMapToOutputAvroTopology();
 
         topology.start();
 
