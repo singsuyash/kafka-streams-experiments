@@ -1,0 +1,14 @@
+{
+  "namespace": "com.poc.inputorder.avro",
+  "name": "InputOrderAttributeAvro",
+  "type": "record",
+  "fields": [
+    {
+      "name": "detail",
+      "type": {
+        "type": "array",
+        "items": "int"
+      }
+    }
+  ]
+}

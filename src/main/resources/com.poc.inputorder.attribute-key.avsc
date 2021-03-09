@@ -1,0 +1,14 @@
+{
+  "namespace": "com.poc.inputorder.avro",
+  "name": "InputOrderAvroKey",
+  "type": "record",
+  "fields": [
+    {
+      "name": "id",
+      "type": {
+        "type": "string",
+        "avro.java.string": "String"
+      }
+    }
+  ]
+}
