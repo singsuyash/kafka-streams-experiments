@@ -1,26 +1,14 @@
 package com.poc.topology;
 
-import com.poc.AppConfig;
 import com.poc.inputorder.*;
 import com.poc.outputorder.*;
 import org.apache.kafka.common.serialization.Serdes;
-import org.apache.kafka.streams.*;
+import org.apache.kafka.streams.KeyValue;
+import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.Produced;
 
-import java.util.Properties;
-
-public class InputToOutputTopology {
-    private final StreamsBuilder builder = new StreamsBuilder();
-    private KafkaStreams stream;
-
-    public Properties getConfig() {
-        Properties props = new Properties();
-        props.put(StreamsConfig.APPLICATION_ID_CONFIG, AppConfig.APPLICATION_ID);
-        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, AppConfig.BOOTSTRAP_SERVER);
-        return props;
-    }
-
+public class InputToOutputTopology extends BaseTopology {
     public Topology getTopology() {
         builder
                 .stream(
@@ -60,16 +48,5 @@ public class InputToOutputTopology {
                                 .withName("PRODUCER-OUTPUT-ORDER")
                 );
         return builder.build();
-    }
-
-    public void start() {
-        Properties props = getConfig();
-        Topology topology = getTopology();
-        stream = new KafkaStreams(topology, props);
-        stream.start();
-    }
-
-    public void stop() {
-        stream.close();
     }
 }

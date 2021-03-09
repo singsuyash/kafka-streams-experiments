@@ -29,12 +29,12 @@ public class InputOrderStateStoreController {
     private static final String DIAGNOSTIC_STATE_STORE = "KSTREAM-JOINOTHER-0000000005-store";
 
     private ReadOnlyWindowStore<InputOrderAvroKey, InputOrderAvro> getOrderStore() {
-        return InputOrderAndDiagnosticJoinToPeekTopology.getKafkaStream()
+        return InputOrderAndDiagnosticJoinToPeekTopology.getStream()
                 .store(StoreQueryParameters.fromNameAndType(ORDER_STATE_STORE, QueryableStoreTypes.windowStore()));
     }
 
     private ReadOnlyWindowStore<InputOrderAvroKey, InputOrderDiagnosticAvro> getDiagnosticStore() {
-        return InputOrderAndDiagnosticJoinToPeekTopology.getKafkaStream()
+        return InputOrderAndDiagnosticJoinToPeekTopology.getStream()
                 .store(StoreQueryParameters.fromNameAndType(DIAGNOSTIC_STATE_STORE, QueryableStoreTypes.windowStore()));
     }
 
@@ -93,52 +93,4 @@ public class InputOrderStateStoreController {
         long l = fetchSensor.stream().reduce(accumulator).get().get();
         return String.format("Sum: %s ms, Average: %s ms", l, Double.valueOf(l)/fetchSensor.size());
     }
-//
-//    @GetMapping("/crorder/window/{seconds}/count")
-//    public long getCrorderCount(@PathVariable("seconds") int duration) {
-//        return getCrorderKeys(duration).size();
-//    }
-//
-//    @GetMapping("/crorder/window/{seconds}/duplicates/keys")
-//    public List<String> getCrorderDuplicatesKeys(@PathVariable("seconds") int duration) {
-//        List<String> outputKeys = new ArrayList<>();
-//        getCrorderKeys(duration)
-//                .stream()
-//                .collect(Collectors.groupingBy(x -> x))
-//                .forEach((k, v) -> {
-//                    if (v.size() > 1) {
-//                        outputKeys.add(k);
-//                    }
-//                });
-//        return outputKeys;
-//    }
-//
-//    @GetMapping("/crorder/window/{seconds}/duplicates/count")
-//    public int getCrorderDuplicatesKeysCount(@PathVariable("seconds") int duration) {
-//        return getCrorderDuplicatesKeys(duration).size();
-//    }
-//
-//    @GetMapping("/crorder/window/{seconds}/runID/{runID}/calculationDate/{calculationDate}/storeNumber/{storeNumber}/productNumber/{productNumber}/requiredDeliveryDate/{requiredDeliveryDate}")
-//    public List<String> getCrorder(
-//            @PathVariable("seconds") int duration,
-//            @PathVariable("runID") String runID,
-//            @PathVariable("calculationDate") String calculationDate,
-//            @PathVariable("storeNumber") int storeNumber,
-//            @PathVariable("productNumber") int productNumber,
-//            @PathVariable("requiredDeliveryDate") String requiredDeliveryDate) {
-//        List<String> crorders = new ArrayList<>();
-//        Instant to = Instant.now();
-//        Instant from = to.minusSeconds(duration);
-//        CROrderKey key = CROrderKey
-//                .newBuilder()
-//                .setRunID(runID)
-//                .setCalculationDate(calculationDate)
-//                .setStoreNumber(storeNumber)
-//                .setProductNumber(productNumber)
-//                .setRequiredDeliveryDate(requiredDeliveryDate)
-//                .build();
-//        WindowStoreIterator<CROrder> iterator = getCrorderStore().fetch(key, from, to);
-//        iterator.forEachRemaining(x -> crorders.add(x.value.toString()));
-//        return crorders;
-//    }
 }

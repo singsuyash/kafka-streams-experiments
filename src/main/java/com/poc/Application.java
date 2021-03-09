@@ -1,6 +1,8 @@
 package com.poc;
 
-import com.poc.topology.InputOrderAndDiagnosticAndAttributeJoinToMapToOutputAvroTopology;
+import com.poc.inputorder.InputOrderAndDiagnosticAndAttributeAvroProducer;
+import com.poc.inputorder.InputOrderProducer;
+import com.poc.topology.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -9,44 +11,60 @@ public class Application {
 
     public static void main(String[] args) throws InterruptedException {
         SpringApplication.run(Application.class, args);
-//        int recordCount = Integer.parseInt(args[0]);
+        int num = Integer.parseInt(args[0]);
+        if (num >= 100) {
+            produceMessages(num);
+            return;
+        }
+        startTopology(num);
+    }
 
-//        InputOrderProducer inputOrderProducer = new InputOrderProducer();
-//        inputOrderProducer.start(recordCount);
-//
-//        InputOrderAvroProducer inputOrderAvroProducer = new InputOrderAvroProducer();
-//        inputOrderAvroProducer.start(recordCount);
-
-//        InputOrderAndDiagnosticAvroProducer inputOrderAndDiagnosticAvroProducer = new InputOrderAndDiagnosticAvroProducer();
-//        inputOrderAndDiagnosticAvroProducer.start(recordCount);
-
-//        InputOrderAndDiagnosticAndAttributeAvroProducer inputOrderAndDiagnosticAndAttributeAvroProducer = new InputOrderAndDiagnosticAndAttributeAvroProducer();
-//        inputOrderAndDiagnosticAndAttributeAvroProducer.start(recordCount);
-
-//        InputToOutputTopology topology = new InputToOutputTopology();
-//        InputToPeekTopology topology = new InputToPeekTopology();
-//        InputToPeekAvroTopology topology = new InputToPeekAvroTopology();
-//        InputToOutputAvroTopology topology = new InputToOutputAvroTopology();
-//        InputOrderAndDiagnosticJoinToPeekTopology topology = new InputOrderAndDiagnosticJoinToPeekTopology();
-//        InputOrderAndDiagnosticToPeekTopology topology = new InputOrderAndDiagnosticToPeekTopology();
-//        InputOrderAndDiagnosticJoinAndMapToPeekTopology topology = new InputOrderAndDiagnosticJoinAndMapToPeekTopology();
-//        InputOrderAndDiagnosticJoinAndMapToOutputAvroTopology topology = new InputOrderAndDiagnosticJoinAndMapToOutputAvroTopology();
-//        InputOrderAndAttributeJoinToPeekTopology topology = new InputOrderAndAttributeJoinToPeekTopology();
-//        InputOrderAndDiagnosticAndAttributeJoinToPeekTopology topology = new InputOrderAndDiagnosticAndAttributeJoinToPeekTopology();
-//        InputOrderAndDiagnosticAndAttributeJoinToMapToPeekTopology topology = new InputOrderAndDiagnosticAndAttributeJoinToMapToPeekTopology();
-        InputOrderAndDiagnosticAndAttributeJoinToMapToOutputAvroTopology topology = new InputOrderAndDiagnosticAndAttributeJoinToMapToOutputAvroTopology();
-
+    private static void startTopology(int num) {
+        BaseTopology topology;
+        switch (num) {
+            case 0:
+                topology = new InputToPeekTopology();
+                break;
+            case 1:
+                topology = new InputToOutputTopology();
+                break;
+            case 2:
+                topology = new InputToPeekAvroTopology();
+                break;
+            case 3:
+                topology = new InputToOutputAvroTopology();
+                break;
+            case 4:
+                topology = new InputOrderAndDiagnosticToPeekTopology();
+                break;
+            case 5:
+                topology = new InputOrderAndDiagnosticJoinToPeekTopology();
+                break;
+            case 6:
+                topology = new InputOrderAndAttributeJoinToPeekTopology();
+                break;
+            case 7:
+                topology = new InputOrderAndDiagnosticAndAttributeJoinToPeekTopology();
+                break;
+            case 8:
+                topology = new InputOrderAndDiagnosticAndAttributeJoinToMapToPeekTopology();
+                break;
+            case 9:
+                topology = new InputOrderAndDiagnosticAndAttributeJoinToMapToOutputAvroTopology();
+                break;
+            default:
+                topology = new InputToPeekAvroTopology();
+                break;
+        }
         topology.start();
+    }
 
-        Runtime
-                .getRuntime()
-                .addShutdownHook(
-                        new Thread("STREAMS-SHUTDOWN-HOOK") {
-                            @Override
-                            public void run() {
-                                topology.stop();
-                            }
-                        }
-                );
+    private static void produceMessages(int recordCount) throws InterruptedException {
+
+        InputOrderProducer inputOrderProducer = new InputOrderProducer();
+        inputOrderProducer.start(recordCount);
+
+        InputOrderAndDiagnosticAndAttributeAvroProducer inputOrderAndDiagnosticAndAttributeAvroProducer = new InputOrderAndDiagnosticAndAttributeAvroProducer();
+        inputOrderAndDiagnosticAndAttributeAvroProducer.start(recordCount);
     }
 }
